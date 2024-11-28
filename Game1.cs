@@ -15,6 +15,7 @@ public class Game1 : Game
     private SpriteFont gameFont;
     private SpriteFont timerFont;
 
+    private readonly GameStateManager gameStateManager = new();
     private readonly Ship playerShip = new(new Vector2(100, 100));
 
     public Game1()
@@ -51,7 +52,13 @@ public class Game1 : Game
 
         inputHandler.HandleInput(InputActions.ExitGame, Exit);
 
+        gameStateManager.Update(gameTime);
         playerShip.Update(gameTime, inputHandler);
+
+        foreach (Asteroid asteroid in gameStateManager.asteroids)
+        {
+            asteroid.Update(gameTime);
+        }
 
         base.Update(gameTime);
     }
@@ -64,6 +71,11 @@ public class Game1 : Game
 
         spriteBatch.Draw(spaceSprite, new Vector2(0, 0), Color.White);
         spriteBatch.Draw(shipSprite, playerShip.Position, Color.White);
+
+        foreach (Asteroid asteroid in gameStateManager.asteroids)
+        {
+            spriteBatch.Draw(asteroidSprite, asteroid.Position, Color.White);
+        }
 
         spriteBatch.End();
 

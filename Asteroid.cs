@@ -1,12 +1,21 @@
+using System;
 using Microsoft.Xna.Framework;
 
 namespace Spaceship;
 
-public class Asteroid(int speed)
+public class Asteroid
 {
-    private readonly int speed = speed;
+    private readonly int speed;
     private readonly int radius = 59;
-    private Vector2 _position = new(600, 300);
+    private Vector2 _position;
+
+    public Asteroid(int speed)
+    {
+        this.speed = speed;
+
+        Random random = new();
+        _position = new(1380, random.Next(radius + 10, 711 - radius));
+    }
 
     public Vector2 Position
     {
