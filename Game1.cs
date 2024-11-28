@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Spaceship.Input;
 
 namespace Spaceship;
 
@@ -14,6 +14,8 @@ public class Game1 : Game
     private Texture2D spaceSprite;
     private SpriteFont gameFont;
     private SpriteFont timerFont;
+
+    private readonly Ship playerShip = new(new Vector2(100, 100));
 
     public Game1()
     {
@@ -45,10 +47,11 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        InputHandler inputHandler = new();
 
-        // TODO: Add your update logic here
+        inputHandler.HandleInput(InputActions.ExitGame, Exit);
+
+        playerShip.Update(gameTime, inputHandler);
 
         base.Update(gameTime);
     }
@@ -60,6 +63,7 @@ public class Game1 : Game
         spriteBatch.Begin();
 
         spriteBatch.Draw(spaceSprite, new Vector2(0, 0), Color.White);
+        spriteBatch.Draw(shipSprite, playerShip.Position, Color.White);
 
         spriteBatch.End();
 
