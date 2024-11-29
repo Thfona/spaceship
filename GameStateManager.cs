@@ -10,11 +10,20 @@ public class GameStateManager
     private double timer = initialTime;
     private double maxTime = initialTime;
     private int nextSpeed = 240;
+    public bool isInGame = false;
     public List<Asteroid> asteroids = [];
+
+    public void StartGame()
+    {
+        isInGame = true;
+    }
 
     public void Update(GameTime gameTime)
     {
-        timer -= gameTime.ElapsedGameTime.TotalSeconds;
+        if (isInGame)
+        {
+            timer -= gameTime.ElapsedGameTime.TotalSeconds;
+        }
 
         if (timer <= 0)
         {

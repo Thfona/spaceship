@@ -6,5 +6,6 @@ public enum InputActions
     MoveDown,
     MoveLeft,
     MoveRight,
+    StartGame,
     ExitGame,
 }

@@ -15,6 +15,7 @@ internal class GamePadInputHandler : IInputActionHandler
         { InputActions.MoveDown, [Buttons.DPadDown] },
         { InputActions.MoveLeft, [Buttons.DPadLeft] },
         { InputActions.MoveRight, [Buttons.DPadRight] },
+        { InputActions.StartGame, [Buttons.A] },
         { InputActions.ExitGame, [Buttons.Back] },
     };
 

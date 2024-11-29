@@ -12,6 +12,7 @@ public class Ship(Vector2 startingPosition)
     public Vector2 Position
     {
         get => new(_position.X - 34, _position.Y - 50);
+        set => _position = value;
     }
 
     private void MoveUp()

@@ -13,6 +13,7 @@ internal class KeyboardInputHandler : IInputActionHandler
         { InputActions.MoveDown, [Keys.S, Keys.Down] },
         { InputActions.MoveLeft, [Keys.A, Keys.Left] },
         { InputActions.MoveRight, [Keys.D, Keys.Right] },
+        { InputActions.StartGame, [Keys.Enter] },
         { InputActions.ExitGame, [Keys.Escape] },
     };
 
