@@ -21,7 +21,7 @@ public class Game1 : Game
     private readonly GameStateManager gameStateManager = new();
 
     private static readonly Vector2 shipStartingPosition = new(screenWidth / 2, screenHeight / 2);
-    private readonly Ship playerShip = new(shipStartingPosition);
+    private readonly Ship playerShip = new(shipStartingPosition, screenWidth, screenHeight);
 
     public Game1()
     {
@@ -70,7 +70,7 @@ public class Game1 : Game
 
                 asteroid.Update(gameTime);
 
-                int radiusesSum = asteroid.radius + playerShip.radius;
+                int radiusesSum = asteroid.radius + playerShip.collisionRadius;
                 float distance = Vector2.Distance(asteroid.Position, playerShip.Position);
 
                 if (distance < radiusesSum)

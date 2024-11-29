@@ -3,37 +3,54 @@ using Spaceship.Input;
 
 namespace Spaceship;
 
-public class Ship(Vector2 startingPosition)
+public class Ship(Vector2 startingPosition, int maxAllowedHorizontalSpace, int maxAllowedVerticalSpace)
 {
+    private static readonly int horizontalRadius = 34;
+    private static readonly int verticalRadius = 50;
+    private static readonly int offset = 10;
+    private readonly int horizontalOffset = horizontalRadius + offset;
+    private readonly int verticalOffset = verticalRadius + offset;
     private readonly int speed = 180;
     private float deltaTime;
     private Vector2 _position = startingPosition;
-    public readonly int radius = 30;
+    public readonly int collisionRadius = 30;
 
     public Vector2 Position
     {
-        get => new(_position.X - 34, _position.Y - 50);
+        get => new(_position.X - horizontalRadius, _position.Y - verticalRadius);
         set => _position = value;
     }
 
     private void MoveUp()
     {
-        _position.Y -= speed * deltaTime;
+        if (_position.Y > verticalOffset)
+        {
+            _position.Y -= speed * deltaTime;
+        }
     }
 
     private void MoveDown()
     {
-        _position.Y += speed * deltaTime;
+        if (_position.Y < maxAllowedVerticalSpace - verticalOffset)
+        {
+            _position.Y += speed * deltaTime;
+        }
     }
 
     private void MoveLeft()
     {
-        _position.X -= speed * deltaTime;
+        if (_position.X > horizontalOffset)
+        {
+            _position.X -= speed * deltaTime;
+        }
     }
 
     private void MoveRight()
     {
-        _position.X += speed * deltaTime;
+        if (_position.X < maxAllowedHorizontalSpace - horizontalOffset)
+        {
+            _position.X += speed * deltaTime;
+        }
     }
 
     public void Update(GameTime gameTime, InputHandler inputHandler)
