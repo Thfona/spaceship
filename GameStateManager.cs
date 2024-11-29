@@ -10,24 +10,40 @@ public class GameStateManager
     private double timer = initialTime;
     private double maxTime = initialTime;
     private int nextSpeed = 240;
-    public bool isInGame = false;
-    public List<Asteroid> asteroids = [];
+    private bool _isInGame = false;
+    private readonly List<Asteroid> _asteroids = [];
+
+    public bool IsInGame
+    {
+        get => _isInGame;
+    }
+
+    public List<Asteroid> Asteroids
+    {
+        get => _asteroids;
+    }
 
     public void StartGame()
     {
-        isInGame = true;
+        _isInGame = true;
+    }
+
+    public void EndGame()
+    {
+        _isInGame = false;
+        _asteroids.Clear();
     }
 
     public void Update(GameTime gameTime)
     {
-        if (isInGame)
+        if (_isInGame)
         {
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         if (timer <= 0)
         {
-            asteroids.Add(new Asteroid(nextSpeed));
+            _asteroids.Add(new Asteroid(nextSpeed));
 
             timer = maxTime;
 

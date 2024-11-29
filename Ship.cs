@@ -8,6 +8,7 @@ public class Ship(Vector2 startingPosition)
     private readonly int speed = 180;
     private float deltaTime;
     private Vector2 _position = startingPosition;
+    public readonly int radius = 30;
 
     public Vector2 Position
     {

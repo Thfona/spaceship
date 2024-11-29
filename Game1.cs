@@ -20,8 +20,8 @@ public class Game1 : Game
 
     private readonly GameStateManager gameStateManager = new();
 
-    private static readonly Vector2 defaultShipPosition = new(screenWidth / 2, screenHeight / 2);
-    private readonly Ship playerShip = new(defaultShipPosition);
+    private static readonly Vector2 shipStartingPosition = new(screenWidth / 2, screenHeight / 2);
+    private readonly Ship playerShip = new(shipStartingPosition);
 
     public Game1()
     {
@@ -60,13 +60,24 @@ public class Game1 : Game
 
         gameStateManager.Update(gameTime);
 
-        if (gameStateManager.isInGame)
+        if (gameStateManager.IsInGame)
         {
             playerShip.Update(gameTime, inputHandler);
 
-            foreach (Asteroid asteroid in gameStateManager.asteroids)
+            for (int i = 0; i < gameStateManager.Asteroids.Count; i++)
             {
+                Asteroid asteroid = gameStateManager.Asteroids[i];
+
                 asteroid.Update(gameTime);
+
+                int radiusesSum = asteroid.radius + playerShip.radius;
+                float distance = Vector2.Distance(asteroid.Position, playerShip.Position);
+
+                if (distance < radiusesSum)
+                {
+                    gameStateManager.EndGame();
+                    playerShip.Position = shipStartingPosition;
+                }
             }
         }
 
@@ -82,12 +93,12 @@ public class Game1 : Game
         spriteBatch.Draw(spaceSprite, new Vector2(0, 0), Color.White);
         spriteBatch.Draw(shipSprite, playerShip.Position, Color.White);
 
-        foreach (Asteroid asteroid in gameStateManager.asteroids)
+        foreach (Asteroid asteroid in gameStateManager.Asteroids)
         {
             spriteBatch.Draw(asteroidSprite, asteroid.Position, Color.White);
         }
 
-        if (!gameStateManager.isInGame)
+        if (!gameStateManager.IsInGame)
         {
             string menuMessage = "Press [Enter] or (A) to begin.";
             Vector2 textSize = gameFont.MeasureString(menuMessage);

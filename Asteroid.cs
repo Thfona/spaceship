@@ -6,8 +6,8 @@ namespace Spaceship;
 public class Asteroid
 {
     private readonly int speed;
-    private readonly int radius = 59;
     private Vector2 _position;
+    public readonly int radius = 59;
 
     public Asteroid(int speed)
     {
