@@ -106,6 +106,8 @@ public class Game1 : Game
             spriteBatch.DrawString(gameFont, menuMessage, new Vector2((screenWidth / 2) - (textSize.X / 2), 100), Color.White);
         }
 
+        spriteBatch.DrawString(timerFont, "Time: " + gameStateManager.PlayTime.ToString(), new Vector2(10, 10), Color.White);
+
         spriteBatch.End();
 
         base.Draw(gameTime);
